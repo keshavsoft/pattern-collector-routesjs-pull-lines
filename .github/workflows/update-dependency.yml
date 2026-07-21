@@ -1,8 +1,7 @@
 name: Update Dependency
 
 on:
-  repository_dispatch:
-    types: [dependency-updated]
+  workflow_dispatch:
 
 permissions:
   contents: write
