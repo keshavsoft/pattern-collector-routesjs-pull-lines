@@ -1,6 +1,8 @@
 name: Update Dependency
 
 on:
+  repository_dispatch:
+    types: [dependency-updated]
   workflow_dispatch:
 
 permissions:
@@ -25,7 +27,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Update pattern-collector dependencies
+      - name: Update dependencies
         run: |
           npm install pattern-collector-routesjs-import-extract@latest pattern-collector-routesjs-use-extract@latest
 
@@ -42,7 +44,7 @@ jobs:
           if git diff-index --quiet HEAD; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
           else
-            git commit -m "chore: update dependencies pattern-collector-routesjs-import-extract and pattern-collector-routesjs-use-extract"
+            git commit -m "chore: update dependencies"
             git push origin main
             echo "has_changes=true" >> $GITHUB_OUTPUT
           fi
@@ -59,16 +61,17 @@ jobs:
     if: needs.update-dependency.outputs.has_changes == 'true'
     runs-on: ubuntu-latest
     steps:
-      - name: Notify pattern-collector-routesjs
+      - name: Notify dependents
         run: |
-          curl -i -X POST \
+          echo "### 🔔 Dependency Notification Status" >> $GITHUB_STEP_SUMMARY
+          RESPONSE1=$(curl -s -w "%{http_code}" -o resp1.json -X POST \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${{ secrets.REPO_DISPATCH_TOKEN }}" \
             https://api.github.com/repos/keshavsoft/pattern-collector-routesjs/dispatches \
-            -d '{"event_type":"dependency-updated"}'
-
-      - name: Create Notification Summary
-        run: |
-          echo "### 🔔 Dependency Notification Summary" >> $GITHUB_STEP_SUMMARY
-          echo "* **Notified Dependent Repository**: \`pattern-collector-routesjs\`" >> $GITHUB_STEP_SUMMARY
-          echo "* **Status**: ✅ Dispatched successfully" >> $GITHUB_STEP_SUMMARY
+            -d '{"event_type":"dependency-updated"}')
+          if [ "$RESPONSE1" = "204" ]; then
+            echo "* **pattern-collector-routesjs**: ✅ Dispatched successfully (HTTP 204)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "* **pattern-collector-routesjs**: ❌ Failed to dispatch (HTTP $RESPONSE1)" >> $GITHUB_STEP_SUMMARY
+            cat resp1.json >> $GITHUB_STEP_SUMMARY
+          fi
