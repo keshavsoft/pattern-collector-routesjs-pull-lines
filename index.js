@@ -6,9 +6,9 @@ const require = createRequire(import.meta.url);
 const v = getLatestVersion();
 const latestModule = require(`./bin/${v}/index.js`);
 
-const load = ({ fileContent, showLog
+const load = ({ fileContent, showLog, showLogStep1
 }) => {
-    return latestModule.default({ fileContent, showLog });
+    return latestModule.default({ fileContent, showLog, showLogStep1 });
 };
 
 export default load;
