@@ -28,7 +28,7 @@
   "homepage": "https://github.com/keshavsoft/pattern-collector-routesjs-pull-lines#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/keshavsoft/pattern-collector-routesjs-pull-lines"
+    "url": "git+https://github.com/keshavsoft/pattern-collector-routesjs-pull-lines.git"
   },
   "bugs": {
     "url": "https://github.com/keshavsoft/pattern-collector-routesjs-pull-lines/issues"
