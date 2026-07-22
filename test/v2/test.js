@@ -11,7 +11,10 @@ const filePath = path.join(__dirname, "routes.js");
 
 const fileContent = fs.readFileSync(filePath, 'utf8');
 
-const k1 = defaultFunc({ fileContent });
+const k1 = defaultFunc({
+    fileContent,
+    showLog: false
+});
 
 console.log("ssssssssss : ", JSON.stringify(k1, null, 2));
 
