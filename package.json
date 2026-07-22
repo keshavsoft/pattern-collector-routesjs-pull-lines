@@ -1,6 +1,6 @@
 {
   "name": "pattern-collector-routesjs-pull-lines",
-  "version": "1.6.5",
+  "version": "1.6.6",
   "description": "story as json",
   "keywords": [
     "pattern",
@@ -12,7 +12,7 @@
     "extractor"
   ],
   "dependencies": {
-    "pattern-collector-routesjs-import-extract": "^1.8.2",
+    "pattern-collector-routesjs-import-extract": "^1.8.3",
     "pattern-collector-routesjs-use-extract": "^1.5.4"
   },
   "type": "module",
