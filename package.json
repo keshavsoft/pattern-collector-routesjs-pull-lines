@@ -12,7 +12,7 @@
     "extractor"
   ],
   "dependencies": {
-    "pattern-collector-routesjs-import-extract": "^1.7.4",
+    "pattern-collector-routesjs-import-extract": "^1.8.2",
     "pattern-collector-routesjs-use-extract": "^1.5.4"
   },
   "type": "module",
